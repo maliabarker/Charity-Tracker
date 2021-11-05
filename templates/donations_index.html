@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Your Donations</h1>
+    {% for donation in donations %}
+        <h2>{{ donation.charity }}</h2>
+        <small>{{ donation.created_at }}</small>
+        <small>{{ donation.donation_amnt }}</small>
+    {% endfor %}
+{% endblock %}
