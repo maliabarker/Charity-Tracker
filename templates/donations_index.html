@@ -4,7 +4,7 @@
     <h1>Your Donations</h1>
     {% for donation in donations %}
         <h2>{{ donation.charity }}</h2>
-        <small>{{ donation.created_at }}</small>
-        <small>{{ donation.donation_amnt }}</small>
+        <small>${{ donation.donation_amnt }}</small><br>
+        <small>Your donation was made on {{ donation.created_at }}</small>
     {% endfor %}
 {% endblock %}

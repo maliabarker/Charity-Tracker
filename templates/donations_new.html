@@ -1,0 +1,16 @@
+<!-- templates/donations_new.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+        <form method='POST' action='/donations'>
+            {% include 'partials/donations_form.html' %}
+            <!-- BUTTON -->
+            <div class='form-group'>
+                <button class='btn btn-primary' type='submit'>Make Donation</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<fieldset>
+    <legend>New Donation</legend>
+    <!-- CHARITY -->
+    <div class='form-group'>
+        <label for='charity'>Charity</label><br>
+        <input class='form-control' id='charity' type='text' name='charity' value='{{ donation.charity }}'/>
+    </div>
+
+    <!-- AMOUNT -->
+    <div class='form-group'>
+        <label for='donation-amnt'>Donation Amount (USD)</label><br>
+        <input class='form-control' id='donation-amnt' type='text' name='donation-amnt' value='{{ donation.donation_amnt }}' />
+    </div>
+</fieldset>
