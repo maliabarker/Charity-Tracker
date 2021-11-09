@@ -7,53 +7,60 @@
     <h4>Help make the world a better place!</h4>
     <p>Keep track of your donations and charities.</p>
 
+    <h6>Sign In</h6>
+    {% include 'partials/login.html' %}
+    <h6>Sign Up</h6>
+    {% include 'partials/signup.html' %}
+    <a href="/login">Log In</a>
+    <a href="/signup">Sign Up</a>
+
     <!--Log In Form (get user)-->
-    <form method='GET' action='/home'>
+    <!-- <form method='GET' action='/dashboard'>
         <fieldset>
             <legend>Log In</legend>
-            <!-- USERNAME -->
+            USERNAME
             <div class='form-group'>
                 <label for='username'>Username</label><br>
                 <input class='form-control' id='username' type='text' name='username'/>
             </div>
         
-            <!-- PASSWORD -->
+            PASSWORD
             <div class='form-group'>
                 <label for='password'>Password</label><br>
                 <input class='form-control' id='password' type='text' name='password'/>
             </div>
         </fieldset>
-        <!-- BUTTON -->
+        BUTTON
         <div class='form-group'>
             <button class='btn btn-primary' type='submit'>Log In</button>
         </div>
-    </form>
+    </form> -->
 
     <!--Sign Up Form (new user)-->
-    <form method='POST' action='/home'>
+    <!-- <form method='POST' action='/dashboard'>
         <fieldset>
             <legend>Sign Up</legend>
-            <!-- USERNAME -->
+            USERNAME
             <div class='form-group'>
                 <label for='username'>Username</label><br>
                 <input class='form-control' id='username' type='text' name='username'/>
             </div>
         
-            <!-- PASSWORD -->
+            PASSWORD
             <div class='form-group'>
                 <label for='password'>Password</label><br>
                 <input class='form-control' id='password' type='text' name='password'/>
             </div>
         
-            <!-- REPEAT PASSWORD -->
+            REPEAT PASSWORD
             <div class='form-group'>
                 <label for='reenter-password'>Re-Enter Password</label><br/>
                 <input class='form-control' id='reenter-password' type='text' name='reenter-password'/>
             </div>
         </fieldset>
-        <!-- BUTTON -->
+        BUTTON
         <div class='form-group'>
             <button class='btn btn-primary' type='submit'>Sign Up</button>
         </div>
-    </form>
+    </form> -->
 {% endblock %}
