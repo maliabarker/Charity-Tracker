@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    
+    <h1>Hello {{ user_obj.username }}</h1>
     <h1>Your Donations</h1>
     {% for donation in donations %}
         <h2>{{ donation.charity }}</h2>
         <small>${{ donation.donation_amnt }}</small><br>
         <small>Your donation was made on {{ donation.created_at }}</small>
+        <p><a href='/donations/{{ donation._id }}/edit' class='btn btn-primary'>Edit</a></p>
+        <p><form method='POST' action='/donations/{{ donation._id }}/delete'>
+            <button class='btn btn-primary' type='submit'>Delete</button>
+        </form></p>
     {% endfor %}
+    <a href="/dashboard">Back to Dashboard</a>
+    <a href="/donations/new">Make Another Donation</a>
 {% endblock %}

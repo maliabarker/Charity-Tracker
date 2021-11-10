@@ -1,15 +1,16 @@
-<!-- templates/donations_new.html -->
+<!-- templates/playlists_edit.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <div class='row'>
     <div class='col-sm-6 col-sm-offset-3'>
-        <form method='POST' action='/donations'>
-            <input type='hidden' value='{{ user_obj.username }}' name='username'/>
+        <form method='POST' action='/donations/{{ donation._id }}/update'>
+            
+            <input type='hidden' name='_method' value='PUT'/>
             {% include 'partials/donations_form.html' %}
             <!-- BUTTON -->
             <div class='form-group'>
-                <button class='btn btn-primary' type='submit'>Make Donation</button>
+                <button class='btn btn-primary' type='submit'>Save Donation</button>
             </div>
         </form>
     </div>
