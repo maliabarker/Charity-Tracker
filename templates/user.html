@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <h1>Hello {{ user_obj.username }}</h1>
+    <h1>Your Account Settings</h1>
+    <a href='/user/{{ user._id }}/edit'>Change Your Username and/or Password</a>
+    <a href='/user/{{ user._id }}/delete'>Delete Your Account</a>
+    <a href="/dashboard">Back to Dashboard</a>
+{% endblock %}

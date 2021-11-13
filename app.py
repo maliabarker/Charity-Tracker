@@ -29,7 +29,6 @@ def login():
         return render_template('dashboard.html')
     elif request.method=='POST':
         user = {
-        'name': request.form.get('name'),
         'username': request.form.get('username'),
         'password': request.form.get('password')
         }
@@ -48,6 +47,41 @@ def logout():
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+
+# ————————————————————————————————————————————————————————————————————————
+"""USER CRUD"""
+@app.route('/user')
+def user_settings():
+    """View user settings"""
+    user_obj = users.find_one({'username': session['username']})
+    return render_template('user.html', user_obj=user_obj, user=user_obj)
+
+@app.route('/user/<user_id>/edit')
+def user_edit(user_id):
+    user=users.find_one({'_id': ObjectId(user_id)})
+    return render_template('user_edit.html', user=user)
+
+@app.route('/user/<user_id>/update', methods=['POST'])
+def user_update(user_id):
+    user_obj = users.find_one({'username': session['username']})
+    updated_user = {
+        'username': request.form.get('username'),
+        'password': request.form.get('password')
+        }
+    users.update_one(
+        {'_id': ObjectId(user_id)},
+        {'$set': updated_user}
+    )
+    session['username']=request.form['username']
+    return redirect(url_for('user_settings', user=user_obj, user_obj=user_obj))
+
+@app.route('/user/<user_id>/delete')
+def user_delete(user_id):
+    users.delete_one({'_id': ObjectId(user_id)})
+    print({'_id': ObjectId(user_id)})
+    session['username']=None
+    return redirect(url_for('index'))
+
 # ————————————————————————————————————————————————————————————————————————
 
 """DONATIONS"""

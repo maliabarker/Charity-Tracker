@@ -1,0 +1,35 @@
+<!-- templates/user_edit.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+        <form method='POST' action='/user/{{ user._id }}/update'>
+            
+            <input type='hidden' name='_method' value='PUT'/>
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" name="username" placeholder="Username" value='{{ user.username }}'>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <p class="control has-icons-left">
+                <input class="input" type="password" name="password" placeholder="Password" value='{{ user.password }}'>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                </p>
+            </div>
+            <!-- BUTTON -->
+            <div class='form-group'>
+                <button class='btn btn-primary' type='submit'>Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
