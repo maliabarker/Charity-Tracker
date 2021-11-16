@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.secret_key = '9a5c0aaf287745d3b21371fb097bb5a22e6da0e9c8fb3bc39e34474f2f400f57'
 
 
+
 #landing page
 @app.route('/')
 def index():
@@ -36,7 +37,7 @@ def login():
         session['username']=request.form['username']
         print(user)
         user_obj = users.find_one({'username': session['username']})
-        return render_template('dashboard.html', user_obj=user_obj)
+        return render_template('dashboard.html', user_obj=user_obj, user=user_obj)
 
 #logout removes username from session, returns to index
 @app.route('/logout')
@@ -48,7 +49,7 @@ def logout():
 @app.route('/dashboard')
 def dashboard():
     user_obj = users.find_one({'username': session['username']})
-    return render_template('dashboard.html', user_obj=user_obj)
+    return render_template('dashboard.html', user_obj=user_obj, user=user_obj)
 
 # ————————————————————————————————————————————————————————————————————————
 """USER CRUD"""
@@ -87,10 +88,10 @@ def user_delete(user_id):
 # ————————————————————————————————————————————————————————————————————————
 
 """DONATIONS"""
-@app.route('/donations')
-def donations_index():
+@app.route('/donations/<user_id>')
+def donations_index(user_id):
     """Show all donations for user"""
-    donation = donations.find({'username': session['username']})
+    donation = donations.find({'_id': ObjectId(user_id)})
     user_obj = users.find_one({'username': session['username']})
     # print(list(donations.find()))
     return render_template('donations_index.html', donations=donation, user_obj=user_obj)
@@ -99,23 +100,23 @@ def donations_index():
 def donations_new():
     user_obj = users.find_one({'username': session['username']})
     """Create new donation"""
-    return render_template('donations_new.html', donation={}, title='New Donation', user_obj=user_obj)
+    return render_template('donations_new.html', donation={}, title='New Donation', user_obj=user_obj, user=user_obj)
 
-@app.route('/donations', methods=['POST'])
+@app.route('/donations/<user_id>', methods=['POST'])
 def submit_donation():
     """Submit a new donation"""
     user_obj = users.find_one({'username': session['username']})
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     donation = {
-        'username': request.form.get('username'),
+        'obj_id': request.form.get('user_obj_id'),
         'charity': request.form.get('charity'),
         'donation_amnt': request.form.get('donation-amnt'),
         'created_at': dt_string
     }
     print(request.form.to_dict())
     donations.insert_one(donation)
-    return redirect(url_for('donations_index', user_obj=user_obj))
+    return redirect(url_for('donations_index', user_obj=user_obj, user=user_obj))
 
 @app.route('/donations/<donation_id>/edit')
 def donations_edit(donation_id):

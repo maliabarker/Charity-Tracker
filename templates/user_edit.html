@@ -2,13 +2,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class='row'>
-    <div class='col-sm-6 col-sm-offset-3'>
+    <div class='text-center'>
         <form method='POST' action='/user/{{ user._id }}/update'>
-            
             <input type='hidden' name='_method' value='PUT'/>
-            <div class="field">
-                <label class="label">Username</label>
+            <div class="row d-flex justify-content-center mt-4">
+            <div class="field my-1 mx-2">
+                <label class="label">Change Username</label>
                 <div class="control has-icons-left has-icons-right">
                     <input class="input" type="text" name="username" placeholder="Username" value='{{ user.username }}'>
                     <span class="icon is-small is-left">
@@ -16,8 +15,8 @@
                     </span>
                 </div>
             </div>
-            <div class="field">
-                <label class="label">Password</label>
+            <div class="field my-1 mx-2">
+                <label class="label">Reset Password</label>
                 <p class="control has-icons-left">
                 <input class="input" type="password" name="password" placeholder="Password" value='{{ user.password }}'>
                 <span class="icon is-small is-left">
@@ -25,11 +24,21 @@
                 </span>
                 </p>
             </div>
+            <div class="field my-1 mx-2">
+                <label class="label">Re-Enter Password</label>
+                <p class="control has-icons-left">
+                <input class="input" type="password" name="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                </p>
+            </div>
+            </div>
             <!-- BUTTON -->
-            <div class='form-group'>
+            <div class='form-group d-flex justify-content-center mb-4'>
                 <button class='btn btn-primary' type='submit'>Save</button>
+                <a href='/user' class='btn btn-primary mx-2'>Back</a>
             </div>
         </form>
     </div>
-</div>
 {% endblock %}

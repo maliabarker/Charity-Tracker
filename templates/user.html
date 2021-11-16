@@ -2,9 +2,11 @@
 
 {% block content %}
     
-    <h1>Hello {{ user_obj.username }}</h1>
-    <h1>Your Account Settings</h1>
-    <a href='/user/{{ user._id }}/edit'>Change Your Username and/or Password</a>
-    <a href='/user/{{ user._id }}/delete'>Delete Your Account</a>
-    <a href="/dashboard">Back to Dashboard</a>
+    <h1 class='text-center'>Hello {{ user_obj.username }}</h1>
+    <h2 class='text-center text-secondary mb-4'>Account Settings</h2>
+    <div class='d-flex justify-content-center mb-4'>
+        <a href='/user/{{ user._id }}/edit' class='btn btn-primary mx-2'>Change Your Username & Password</a>
+        <a href='/user/{{ user._id }}/delete' class='btn btn-primary mx-2'>Delete Your Account</a>
+        <a href='/dashboard' class='btn btn-primary mx-2'>Back to Dashboard</a>
+    </div>
 {% endblock %}
