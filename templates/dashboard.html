@@ -2,6 +2,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h2 class='text-center mt-4'>Hello {{ user_obj.username }}!</h2>
+    <div class="row justify-content-md-center text-center">
+        <div class="col-3 bg-light py-4">
+            <h6>Total Contribution</h6>
+            <p>$placeholder</p>
+        </div>
+        <div class="col-3 bg-light py-4">
+            <h6>Total Donations</h6>
+            <p>placeholder</p>
+        </div>
+        <div class="col-3 bg-light py-4">
+            <h6>Total Charities Donated To</h6>
+            <p>placeholder</p>
+        </div>
+    </div>
     <a href='/donations/new'>Make a Donation</a>
     <a href='/donations'>View Your Donations and Charities</a>
     <a href='/user'>User Settings</a>

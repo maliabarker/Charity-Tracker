@@ -3,16 +3,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to Charity Tracker</h1>
-    <h4>Help make the world a better place!</h4>
-    <p>Keep track of your donations and charities.</p>
+    <div class='text-center'>
+        <h1>Welcome to Charity Tracker</h1>
+        <h4>Help make the world a better place!</h4>
+        <p>Keep track of your donations and charities.</p>
+    </div>
 
-    <h6>Sign In</h6>
-    {% include 'partials/login.html' %}
-    <h6>Sign Up</h6>
-    {% include 'partials/signup.html' %}
-    <a href="/login">Log In</a>
-    <a href="/signup">Sign Up</a>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-3 mr-3 mt-4">
+            <h5 class='text-center mr-5'>Sign In</h5>
+            {% include 'partials/login.html' %}
+        </div>
+        <div class="col col-lg-3 ml-3 mt-4">
+            <h5 class='text-center mr-5'>Sign Up</h5>
+            {% include 'partials/signup.html' %}
+        </div>
+    </div>
+    
 
     <!--Log In Form (get user)-->
     <!-- <form method='GET' action='/dashboard'>

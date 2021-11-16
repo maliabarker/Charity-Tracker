@@ -35,7 +35,8 @@ def login():
         user = users.insert_one(user)
         session['username']=request.form['username']
         print(user)
-        return render_template('dashboard.html')
+        user_obj = users.find_one({'username': session['username']})
+        return render_template('dashboard.html', user_obj=user_obj)
 
 #logout removes username from session, returns to index
 @app.route('/logout')
@@ -46,7 +47,8 @@ def logout():
 # ————————————————————————————————————————————————————————————————————————
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    user_obj = users.find_one({'username': session['username']})
+    return render_template('dashboard.html', user_obj=user_obj)
 
 # ————————————————————————————————————————————————————————————————————————
 """USER CRUD"""
