@@ -4,13 +4,6 @@
     <h1 class='text-center'>Hello {{ user_obj.username }}</h1>
     <h2 class='text-center mb-5'>Your Donations</h2>
     <div class='ml-5'>
-        <!-- {% for article_row in articles | batch(3, '&nbsp;') %}
-        <div class="row">
-            {% for article in article_row %}
-            <div class="span4">{{ article }}</div>
-            {% endfor %}
-        </div>
-        {% endfor %} -->
         {% for donation_row in donations | batch(3, '&nbsp;') %}
             <div class="row">
                 {% for donation in donation_row %}
@@ -19,8 +12,8 @@
                     <h8>${{ donation.donation_amnt }}</h8><br>
                     <small>Your donation was made on {{ donation.created_at }}</small>
                     <div class="d-flex justify-content-center">
-                        <p><a href='/donations/{{ donation._id }}/edit' class='btn btn-secondary mx-2 mt-3'>Edit</a></p>
-                        <p><form method='POST' action='/donations/{{ donation._id }}/delete'>
+                        <p><a href='/donations/{{ user._id }}/{{ donation._id }}/edit' class='btn btn-secondary mx-2 mt-3'>Edit</a></p>
+                        <p><form method='POST' action='/donations/{{ user._id }}/{{ donation._id }}/delete'>
                             <button class='btn btn-secondary mx-2 mt-3' type='submit'>Delete</button>
                         </form></p>
                     </div>

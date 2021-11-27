@@ -5,7 +5,6 @@
 <div class='row d-flex justify-content-center mt-5'>
     <div class='col-sm-6 col-sm-offset-3'>
         <form method='POST' action='/donations/{{ user._id }}'>
-            <input type='hidden' value='{{ user._id }}' name='user_obj_id'/>
             {% include 'partials/donations_form.html' %}
             <!-- BUTTON -->
             <div class='form-group'>

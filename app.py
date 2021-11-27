@@ -91,10 +91,12 @@ def user_delete(user_id):
 @app.route('/donations/<user_id>')
 def donations_index(user_id):
     """Show all donations for user"""
-    donation = donations.find({'_id': ObjectId(user_id)})
+    donation = donations.find({'user': user_id})
     user_obj = users.find_one({'username': session['username']})
-    # print(list(donations.find()))
-    return render_template('donations_index.html', donations=donation, user_obj=user_obj)
+    # print(list(donations.find({'user': user_id})))
+    # print(donation)
+    # print(user_id)
+    return render_template('donations_index.html', donations=donation, user_obj=user_obj, user=user_obj)
 
 @app.route('/donations/new')
 def donations_new():
@@ -103,35 +105,40 @@ def donations_new():
     return render_template('donations_new.html', donation={}, title='New Donation', user_obj=user_obj, user=user_obj)
 
 @app.route('/donations/<user_id>', methods=['POST'])
-def submit_donation():
+def submit_donation(user_id):
     """Submit a new donation"""
     user_obj = users.find_one({'username': session['username']})
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    user = users.find_one({'_id': ObjectId(user_id)})
+    print(user_id)
+
     donation = {
-        'obj_id': request.form.get('user_obj_id'),
+        'user': user_id,
         'charity': request.form.get('charity'),
         'donation_amnt': request.form.get('donation-amnt'),
         'created_at': dt_string
     }
     print(request.form.to_dict())
     donations.insert_one(donation)
-    return redirect(url_for('donations_index', user_obj=user_obj, user=user_obj))
+    return redirect(url_for('donations_index', user_obj=user_obj, user=user_obj, user_id=user_id))
 
-@app.route('/donations/<donation_id>/edit')
-def donations_edit(donation_id):
+@app.route('/donations/<user_id>/<donation_id>/edit')
+def donations_edit(donation_id, user_id):
     """Edit a donation"""
+    user = users.find_one({'_id': ObjectId(user_id)})
     donation=donations.find_one({'_id': ObjectId(donation_id)})
-    return render_template('donations_edit.html', donation=donation, title='Edit Donation')
+    return render_template('donations_edit.html', donation=donation, title='Edit Donation', user_id=user_id, user=user)
 
-@app.route('/donations/<donation_id>/update', methods=['POST'])
-def donations_update(donation_id):
+@app.route('/donations/<user_id>/<donation_id>/update', methods=['POST'])
+def donations_update(donation_id, user_id):
     """Submit edited donation"""
     user_obj = users.find_one({'username': session['username']})
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    user = users.find_one({'_id': ObjectId(user_id)})
     updated_donation = {
-        'username': user_obj.get('username'),
+        'user': user_id,
         'charity': request.form.get('charity'),
         'donation_amnt': request.form.get('donation-amnt'),
         'created_at': dt_string
@@ -141,14 +148,17 @@ def donations_update(donation_id):
         {'$set': updated_donation}
     )
     
-    return redirect(url_for('donations_index', donation_id=donation_id, user_obj=user_obj))
+    return redirect(url_for('donations_index', donation_id=donation_id, user_obj=user_obj, user_id=user_id, user=user_obj))
 
-@app.route('/donations/<donation_id>/delete', methods=['POST'])
-def donations_delete(donation_id):
+@app.route('/donations/<user_id>/<donation_id>/delete', methods=['POST'])
+def donations_delete(donation_id, user_id):
     """Delete a playlist"""
+    user = users.find_one({'_id': ObjectId(user_id)})
+    # user = users.find_one({'username': session['username']})
+    print(user)
     donations.delete_one({'_id': ObjectId(donation_id)})
-    return redirect(url_for('donations_index'))
+    return redirect(url_for('donations_index', user_id=user_id))
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
