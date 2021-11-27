@@ -1,11 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, session, Response
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_pymongo import pymongo
 from pymongo import MongoClient
 from datetime import datetime
 from bson.objectid import ObjectId
 
 #setting up DB
-client = MongoClient()
-db = client.CharityTracker
+CONNECTION_STRING = "mongodb+srv://maliabarker:Tpofbawf01!@charity-tracker.4a7cj.mongodb.net/charitytracker?retryWrites=true&w=majority"
+client = pymongo.MongoClient(CONNECTION_STRING)
+db = client.get_default_database()
+# client = MongoClient()
+# db = client.CharityTracker
 users = db.users
 donations = db.donations
 
